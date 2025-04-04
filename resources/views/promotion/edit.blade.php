@@ -5,24 +5,31 @@
 
 <div class="bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto mb-8">
     @if ($edit)
-    <form action="{{ URL::to('/promotion/'.$edit->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ URL::to('/promotion/'.$edit->id) }}" method="POST">
         @csrf
-        @method('PUT')
-        <input type="hidden" name="id" value="{{ $edit->id }}">
-        
+        @method('PUT')        
         <div class="mb-4">
             <label class="block text-gray-700 font-semibold">Title:</label>
             <input type="text" id="newtitle" name="newtitle" value="{{ $edit->title }}" class="w-full border border-gray-300 p-2 rounded-md">
+            @error('newtitle')
+                <div class='text-red-600'>{{ $message }}</div>
+            @enderror
         </div>
         
         <div class="mb-4">
             <label class="block text-gray-700 font-semibold">Description:</label>
             <textarea id="newdescription" name="newdescription" class="w-full border border-gray-300 p-2 rounded-md min-h-[200px]">{{ $edit->description }}</textarea>
+            @error('newdescription')
+                <div class='text-red-600'>{{ $message }}</div>
+            @enderror
         </div>
         
         <div class="mb-4">
             <label class="block text-gray-700 font-semibold">Image URL:</label>
             <input type="text" id="newimage" name="newimage" value="{{ $edit->image }}" class="w-full border border-gray-300 p-2 rounded-md">
+            @error('newimage')
+                <div class='text-red-600'>{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="flex space-x-4 mt-4">

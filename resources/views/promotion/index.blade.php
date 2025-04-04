@@ -7,7 +7,7 @@
     @foreach($data as $row)
     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
         <img src="{{ $row->image }}" class="w-full h-48 object-cover">
-            <div class="p-4">
+            <div class="p-4 text-wrap">
                 <h3 class="text-xl font-semibold mb-2">{{ $row->title }}</h3>
                 <p class="text-gray-600 mb-4 line-clamp-3">{{ $row->description }}</p>
                 <a href="{{ URL::to('/promotion/'.$row->id) }}"

@@ -29,17 +29,24 @@ class PromotionController extends Controller
      */
     public function store(Request $req)
     {
-        $title = $req->title;
-        $description = $req->description;
-        $image = $req->image;
+        if($req->validate(
+        [
+            'title'         =>['required', 'min:2', 'max:30'],
+            'description'   =>['required', 'min:150'],
+            'image'         =>['required']
+        ])){
+            $title = $req->title;
+            $description = $req->description;
+            $image = $req->image;
 
-        $baru               = new Promotion();
-        $baru->title        = $title;
-        $baru->description  = $description;
-        $baru->image        = $image;
-        $baru->save();
+            $baru               = new Promotion();
+            $baru->title        = $title;
+            $baru->description  = $description;
+            $baru->image        = $image;
+            $baru->save();
 
-        return redirect('promotion');
+            return redirect('promotion');
+        }
     }
 
     /**
@@ -47,7 +54,7 @@ class PromotionController extends Controller
      */
     public function show($id)
     {
-        $id = (int) $id;
+        $id = $id;
         $param['detail'] = Promotion::findOrFail($id);
         return view('promotion.detail', $param);
     }
@@ -57,7 +64,7 @@ class PromotionController extends Controller
      */
     public function edit(string $id)
     {
-        $id = (int) $id;
+        $id = $id;
         $param['edit'] = Promotion::findOrFail($id);
         return view('promotion.edit', $param);
     }
@@ -67,23 +74,31 @@ class PromotionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = Promotion::findOrFail($id);
-        $data->title = $request->newtitle;
-        $data->description = $request->newdescription;
-        $data->image = $request->newimage;
-        $data->save();
+        if($request->validate(
+        [
+            'newtitle'         =>['required', 'min:2'],
+            'newdescription'   =>['required', 'min:150'],
+            'newimage'         =>['required']
+        ])){
+            $data = Promotion::findOrFail($id);
+            $data->title = $request->newtitle;
+            $data->description = $request->newdescription;
+            $data->image = $request->newimage;
+            $data->save();
 
-        return redirect('/promotion');
+            return redirect('/promotion');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $id = (int) $id;
-        $promotion = Promotion::findOrFail($id);
-        $promotion->delete();
+        Promotion::destroy($id);
+        // $id = (int) $id;
+        // $promotion = Promotion::findOrFail($id);
+        // $promotion->delete();
 
         return redirect('/promotion')->with('success', 'Promotion deleted successfully!');
     }

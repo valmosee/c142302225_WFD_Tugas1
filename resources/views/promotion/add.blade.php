@@ -8,17 +8,26 @@
         @csrf
         <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2">Title</label>
-            <input id="title" type="text" name="title" class="w-full p-2 border border-gray-300 rounded-lg" required>
+            <input id="title" type="text" name="title" class="w-full p-2 border border-gray-300 rounded-lg">
+            @error('title')
+                <div class='text-red-600 italic'>{{ $message }}</div>
+            @enderror
         </div>
         
         <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2">Description</label>
-            <textarea id="description" name="description" class="w-full p-2 border border-gray-300 rounded-lg" required></textarea>
+            <textarea id="description" name="description" class="w-full p-2 border border-gray-300 rounded-lg"></textarea>
+            @error('description')
+                <div class='text-red-600 italic'>{{ $message }}</div>
+            @enderror
         </div>
         
         <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2">Image URL</label>
-            <input id="image" type="text" name="image" class="w-full p-2 border border-gray-300 rounded-lg" required>
+            <input id="image" type="text" name="image" class="w-full p-2 border border-gray-300 rounded-lg">
+            @error('image')
+                <div class='text-red-600 italic'>{{ $message }}</div>
+            @enderror
         </div>
         
         <div class="text-center">
